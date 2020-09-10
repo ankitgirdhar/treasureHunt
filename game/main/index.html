@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Samurai Jack</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Kavivanar" rel="stylesheet">\
+		<link href="https://fonts.googleapis.com/css?family=Merienda" rel="stylesheet">
+		<style>
+
+			@font-face {
+				  font-family: 'UnrealT';
+				  src: url('UnrealT.ttf') format('truetype');
+			} 
+
+			@keyframes fadein {
+			    from { opacity: 0; }
+			    to   { opacity: 1; }
+			}
+
+			body {
+				font-family: Monospace;
+				background-color: #000;
+				color: #fff;
+				margin: 0px;
+				overflow: hidden;
+			}
+
+			#camera-btn{
+				position: absolute;
+				right: 15px;
+				bottom: 15px;
+				width: 60px;
+				height: 60px;
+				background-color: #AC8D72;
+				border-radius: 50%;
+				font-size: 10px;
+				font-family: 'Merienda', cursive;
+				color: #fff;
+			}
+
+			#message_ok{
+				position: absolute;
+				bottom: 10px;
+				padding: 10px 20px 10px 20px;
+				font-family: 'Merienda', cursive;
+				font-size: 20px;
+				background-image: url('map.jpg');
+				color: #fff;
+				border-radius: 8px;
+				border: medium solid #696882;
+			}
+
+			#score{
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				padding: 10px 20px 10px 20px;
+				font-family: 'Merienda', cursive;
+				font-size: 20px;
+				color: #fff;
+			}
+
+			#message_fail{
+				position: absolute;
+				top: 10px;
+				padding: 10px 20px 10px 20px;
+				font-family: 'Merienda', cursive;
+				font-size: 20px;
+				background-image: url('map.jpg');
+				color: #fff;
+				border-radius: 8px;
+				border: medium solid #696882;
+			}
+
+			
+			#loading {width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: block; z-index: 99}
+			.strokeme{
+				    color: #271B11;
+				    text-shadow:
+				    -1px -1px 0 #fff,
+				    1px -1px 0 #fff,
+				    -1px 1px 0 #fff,
+				    1px 1px 0 #fff;
+			}
+			#loading-image {position: absolute;z-index: 111} 
+			#display { position: absolute;z-index: 155 ; text-align: center;font-family: 'UnrealT'; font-size: 200px; text-align: center; left: 30px; animation: fadein 3s;}
+		</style>
+	</head>
+
+	<body>
+		<button id="camera-btn">Switch View</button>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.min.js"></script>
+		<script src="../../libs/inflate.min.js"></script>
+		<script src="../../libs/FBXLoader.js"></script>
+		<script src="../../libs/OrbitControls.js"></script>
+		<script src="../../libs/Detector.js"></script>
+		<script src="../../libs/stats.min.js"></script>
+		<script src="../../libs/cannon.min.js"></script>
+		<script src="../../libs/CannonDebugRenderer.js"></script>
+		<script src="game.js"></script>
+		<div id="loading">
+			<img id="loading-image" src="map.jpg" alt="Loading..." />
+			<h1 class="strokeme" id="display">Game of Treasures</h1>
+		</div>  
+		<div>
+			<div id="message_fail"></div>
+		</div>
+		<div>
+			<div id="message_ok"></div>
+		</div>
+		<div>
+			<div id="score">Jewels Collected: 0</div>
+		</div>
+		
+		<script>
+				//document.getElementById("message_fail").style.display = "none";
+				var txt = 'Find the treasure chest. Click space to hit';
+				var tx = 'Game of Treasures';
+				var speed = 200;
+				var i = 0;
+				//document.getElementById("message_fail").innerHTML = 'Treasure Found!';
+
+				function typeWriter() {
+				  if (i < txt.length) {
+				    document.getElementById("message_ok").innerHTML += txt.charAt(i);
+				    i++;
+				    setTimeout(typeWriter, speed);
+				  }
+				}
+
+				const game = new Game();
+				window.game = game;//For debugging only
+				window.onload = function(){ 
+					setTimeout(function(){ document.getElementById("loading").style.display = "none"; typeWriter();}, 6000);
+					
+				};
+		</script>
+	</body>
+</html>
+
+
